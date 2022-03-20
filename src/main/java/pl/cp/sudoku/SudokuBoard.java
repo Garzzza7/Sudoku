@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SudokuBoard {
+    private final SudokuSolver sudokuSolver;
+    public SudokuBoard(SudokuSolver sudokuSolver) {
+        this.sudokuSolver = sudokuSolver;
+
+    }
 
     private final int [][] board = new int[9][9];
 
@@ -18,6 +23,10 @@ public class SudokuBoard {
 
     public int getCellValue(int cellX, int cellY) {
         return board[cellX][cellY];
+    }
+
+    public void setCellValue(int cellX, int cellY, int value){
+
     }
 
     private void solve(int row, int col) {
@@ -123,5 +132,11 @@ public class SudokuBoard {
             board[row][i] = 0;
             board[i][row] = 0;
         }
+    }
+
+    public void solveGame() {
+        SudokuBoard sd = new SudokuBoard(sudokuSolver);
+        this.sudokuSolver.solve(sd);
+
     }
 }

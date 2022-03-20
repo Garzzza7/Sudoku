@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import java.lang.reflect.Field;
 
 public class SudokuTest {
-
+/*
     @org.junit.jupiter.api.Test
     public void testSudokuBoardCorrectness() {
         SudokuBoard sudokuBoard = new SudokuBoard();
@@ -75,4 +75,6 @@ public class SudokuTest {
         }
         Assertions.assertFalse(SudokuRepetitive);
     }
+
+ */
 }
