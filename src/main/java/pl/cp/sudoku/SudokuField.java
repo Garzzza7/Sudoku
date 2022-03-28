@@ -3,7 +3,6 @@ package pl.cp.sudoku;
 public class SudokuField extends Observable {
 
     private int value;
-    private Observer observer;
 
     public SudokuField(Observer observer) {
         super(observer);
