@@ -1,11 +1,16 @@
 package pl.cp.sudoku;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class SudokuPart {
 
     protected SudokuField[] fields = new SudokuField[9];
+    //protected List<SudokuField> fields = new ArrayList<>(9);
 
     public void setFieldValue(int position, SudokuField field) {
         this.fields[position] = field;
+        //this.fields.set(position, field);
     }
 
     public boolean verify() {
