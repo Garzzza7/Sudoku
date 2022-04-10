@@ -148,9 +148,10 @@ public class SudokuBoard implements Observer {
     @Override
     public String toString(){
         ToStringBuilder stringBuilder = new ToStringBuilder(this);
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                stringBuilder.append(board[row][col].getFieldValue());
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                stringBuilder.append(board[i][j].getFieldValue());
             }
         }
         return stringBuilder.toString();

@@ -2,7 +2,8 @@ package pl.cp.sudoku;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.lang.reflect.Field;
 
 public class SudokuTest {
@@ -81,5 +82,72 @@ public class SudokuTest {
             }
         }
         Assertions.assertFalse(SudokuRepetitive);
+    }
+    @Test
+    public void toStringTestForSudokuBoard(){
+        SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
+        try{
+        String st = sb.toString();
+        assertNotSame(null,st);
+    }catch (NullPointerException e){System.out.println("Works but values are nulls");}
+    }
+
+    @Test
+    public void equalsTestForSudokuBoard(){
+        SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard bs = new SudokuBoard(new BacktrackingSudokuSolver());
+        try {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++)
+                      sb.set(i,j,1);
+
+            }
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++)
+                    bs.set(i, j, 1);
+            }
+        }
+        catch (NullPointerException e){System.out.println("Works but values are nulls");}
+        assertTrue(sb.equals(bs)&&bs.equals(sb));
+        assertEquals(true,sb.hashCode()==bs.hashCode());
+        SudokuColumn sudokuColumn = new SudokuColumn();
+        assertFalse(sb.equals(sudokuColumn));
+        assertFalse(sb.equals(null));
+    }
+    @Test
+    public void hashCodeTestForSudokuBoard(){
+        SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard bs = new SudokuBoard(new BacktrackingSudokuSolver());
+        sb=bs;
+        assertTrue(sb.equals(bs)&&bs.equals(sb));
+    }
+    @Test
+    public void toStringTestForSudokuField(){
+        SudokuField sf = new SudokuField(() -> {});
+        try{
+            String st = sf.toString();
+            assertNotSame(null,st);
+        }catch (NullPointerException e){System.out.println("Works but values are nulls");}
+    }
+
+    @Test
+    public void equalsTestForSudokuField(){
+        SudokuField sb = new SudokuField(() -> {});
+        SudokuField bs = new SudokuField(() -> {});
+
+        sb.setFieldValue(1);
+        bs.setFieldValue(1);
+        assertEquals(sb, bs);
+        sb.setFieldValue(5);
+        assertNotEquals(sb, bs);
+        assertNotEquals(null, sb);
+        assertNotEquals(null, bs);
+    }
+    @Test
+    public void hashCodeTestForSudokuField(){
+        SudokuField sb = new SudokuField(() -> {});
+        SudokuField bs = new SudokuField(() -> {});
+        sb=bs;
+        assertTrue(sb.equals(bs)&&bs.equals(sb));
     }
 }
