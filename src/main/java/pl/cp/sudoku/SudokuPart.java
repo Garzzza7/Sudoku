@@ -1,8 +1,5 @@
 package pl.cp.sudoku;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class SudokuPart {
 
     protected SudokuField[] fields = new SudokuField[9];
@@ -16,7 +13,7 @@ public abstract class SudokuPart {
     public boolean verify() {
         for (SudokuField x : fields) {
             for (SudokuField y : fields) {
-                if (x != y && x.getFieldValue() == y.getFieldValue() && (x.getFieldValue() != 0 || y.getFieldValue() != 0)) {
+                if (x != y && x.getFieldValue() == y.getFieldValue() && (x.getFieldValue() != 0 | y.getFieldValue() != 0)) {
                     return false;
                 }
             }

@@ -8,17 +8,6 @@ public class SudokuBoard implements Observer {
 
     private final SudokuField[][] board = new SudokuField[9][9];
     private final SudokuSolver sudokuSolver;
-    /*
-    private final SudokuField[] board = new SudokuField[81];
-    private final SudokuSolver sudokuSolver;
-    private List<SudokuField> boardlist = Arrays.asList(board);
-
-    public SudokuBoard(SudokuSolver solver) {
-        this.sudokuSolver = solver;
-        for (int i = 0; i < 81; i++) {
-            boardlist.set(i,new SudokuField(this));
-        }
-     */
 
     public SudokuBoard(SudokuSolver solver) {
         this.sudokuSolver = solver;
@@ -34,20 +23,10 @@ public class SudokuBoard implements Observer {
     public int get(int x, int y) {
         return board[x][y].getFieldValue();
     }
-    /*
-       public int get(int x, int y) {
-        return boardlist.get(x * 9 + y).getFieldValue();
-    }
-     */
 
     public void set(int x, int y, int value) {
         board[x][y].setFieldValue(value);
     }
-    /*
-        public void set(int x, int y, int value) {
-        boardlist.get(x * 9 + y).getFieldValue();
-    }
-     */
 
     private boolean checkBoard() {
         for (int i = 0; i < 9; i++) {
@@ -76,13 +55,6 @@ public class SudokuBoard implements Observer {
         }
 
         sudokuSolver.solve(this);
-        /*
-
-       for (int i = 0; i < 81; i++){
-            boardlist.get(i)=new SudokuField(this);
-        }
-        sudokuSolver.solve(this);
-         */
     }
 
     public SudokuRow getRow(int row) {
@@ -91,13 +63,6 @@ public class SudokuBoard implements Observer {
             sudokuRow.setFieldValue(i, board[row][i]);
         }
         return sudokuRow;
-        /*
-                SudokuRow sudokuRow = new SudokuRow();
-        for (int i = 0; i < 9; i++) {
-            sudokuRow.setFieldValue(i, boardlist.get(row*9+i));
-        }
-        return sudokuRow;
-         */
     }
 
     public SudokuColumn getColumn(int col) {
@@ -106,13 +71,6 @@ public class SudokuBoard implements Observer {
             sudokuColumn.setFieldValue(i, board[i][col]);
         }
         return sudokuColumn;
-        /*
-                SudokuColumn sudokuColumn = new SudokuColumn();
-        for (int i = 0; i < 9; i++) {
-            sudokuColumn.setFieldValue(i, boardlist.get(i*9+col));
-        }
-        return sudokuColumn;
-         */
     }
 
     public SudokuBox getBox(int row, int col) {
@@ -131,22 +89,10 @@ public class SudokuBoard implements Observer {
             }
         }
         return box;
-        /*
-                SudokuBox box = new SudokuBox();
-        int counter = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-
-                box.setFieldValue(counter, boardlist.get((row + i) * 9 + col + j));
-                counter=counter+1;
-            }
-        }
-
-        return box;
-         */
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         ToStringBuilder stringBuilder = new ToStringBuilder(this);
 
         for (int i = 0; i < 9; i++) {
@@ -156,13 +102,17 @@ public class SudokuBoard implements Observer {
         }
         return stringBuilder.toString();
     }
+
     @Override
-    public boolean equals(Object object){
+    public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         SudokuBoard sb = (SudokuBoard) object;
-        return new EqualsBuilder().append(board,sb.board).isEquals();
+        return new EqualsBuilder().append(board, sb.board).isEquals();
     }
+
     @Override
-    public int hashCode() {return new HashCodeBuilder(17,37).append(board).toHashCode();}
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(board).toHashCode();
+    }
 }
