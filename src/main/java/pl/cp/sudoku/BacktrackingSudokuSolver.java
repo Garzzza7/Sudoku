@@ -1,10 +1,8 @@
 package pl.cp.sudoku;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
@@ -50,14 +48,11 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         }
 
         //Find next zero and solve it.
-        //int[] zeros = nextZeroPosition(board);
-        //List<Integer> zeroslist = Arrays.stream(zeros).boxed().toList();
-        List<Integer> zeroslist = new ArrayList<>();
-        zeroslist.addAll(nextZeroPosition(board));
-        if (zeroslist.get(0) == 10) {
+        List<Integer> zerosList = new ArrayList<>(nextZeroPosition(board));
+        if (zerosList.get(0) == 10) {
             return;
         }
-        recursiveSolve(zeroslist.get(0), zeroslist.get(1), board);
+        recursiveSolve(zerosList.get(0), zerosList.get(1), board);
     }
 
     private List<Integer> nextZeroPosition(SudokuBoard sudokuBoard) {
