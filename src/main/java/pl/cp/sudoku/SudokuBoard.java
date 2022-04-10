@@ -1,5 +1,9 @@
 package pl.cp.sudoku;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class SudokuBoard implements Observer {
 
     private final SudokuField[][] board = new SudokuField[9][9];
@@ -141,4 +145,23 @@ public class SudokuBoard implements Observer {
         return box;
          */
     }
+    @Override
+    public String toString(){
+        ToStringBuilder stringBuilder = new ToStringBuilder(this);
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                stringBuilder.append(board[row][col].getFieldValue());
+            }
+        }
+        return stringBuilder.toString();
+    }
+    @Override
+    public boolean equals(Object object){
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        SudokuBoard sb = (SudokuBoard) object;
+        return new EqualsBuilder().append(board,sb.board).isEquals();
+    }
+    @Override
+    public int hashCode() {return new HashCodeBuilder(17,37).append(board).toHashCode();}
 }
