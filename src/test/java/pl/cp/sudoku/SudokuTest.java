@@ -116,7 +116,7 @@ public class SudokuTest {
             System.out.println("Works but values are nulls");
         }
         assertTrue(sb.equals(bs) && bs.equals(sb));
-        assertEquals(true, sb.hashCode() == bs.hashCode());
+        assertEquals(false, sb.hashCode() != bs.hashCode());
         SudokuColumn sudokuColumn = new SudokuColumn();
         assertFalse(sb.equals(sudokuColumn));
         assertFalse(sb.equals(null));
