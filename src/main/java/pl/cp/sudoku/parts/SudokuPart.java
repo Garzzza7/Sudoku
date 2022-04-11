@@ -1,4 +1,6 @@
-package pl.cp.sudoku;
+package pl.cp.sudoku.parts;
+
+import pl.cp.sudoku.SudokuField;
 
 public abstract class SudokuPart {
 

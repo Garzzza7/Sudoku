@@ -3,6 +3,10 @@ package pl.cp.sudoku;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import pl.cp.sudoku.parts.SudokuBox;
+import pl.cp.sudoku.parts.SudokuColumn;
+import pl.cp.sudoku.parts.SudokuRow;
+import pl.cp.sudoku.solver.SudokuSolver;
 
 public class SudokuBoard implements Observer {
 

@@ -2,6 +2,9 @@ package pl.cp.sudoku;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.cp.sudoku.parts.SudokuColumn;
+import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
+import pl.cp.sudoku.solver.SudokuSolver;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

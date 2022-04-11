@@ -1,12 +1,10 @@
 package pl.cp.sudoku.dao;
 
+import java.io.*;
+
 import pl.cp.sudoku.SudokuBoard;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
-public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable{
+public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     private final String path;
 
@@ -17,24 +15,25 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable{
     @Override
     public SudokuBoard read() {
         SudokuBoard sudokuBoard = null;
-        try{
-            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path));
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path))){
             sudokuBoard = (SudokuBoard) inputStream.readObject();
-            inputStream.close();
-        }
-        catch (IOException | ClassNotFoundException exception){
-            System.out.println(exception.getMessage());
+        } catch (IOException | ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
         return sudokuBoard;
     }
 
     @Override
     public void write(SudokuBoard object) {
-
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path))) {
+            outputStream.writeObject(object);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     @Override
     public void close() throws Exception {
-
+        System.out.println("FileSudokuBoardDao closed!");
     }
 }
