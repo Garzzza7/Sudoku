@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.0">
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/dao/SudokuBoardDaoFactory.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/dao/FileSudokuBoardDao.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/dao/Dao.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/parts/SudokuBox.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/parts/SudokuRow.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/parts/SudokuColumn.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/parts/SudokuPart.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/SudokuBoard.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/Observer.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/SudokuField.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/solver/BacktrackingSudokuSolver.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/solver/SudokuSolver.java">
+</file>
+<file name="/home/specklew/Dokumenty/2021_22_lato/Component Progrmamming/Project/mkw_mon_1000_02/Model/src/main/java/pl/cp/sudoku/Observable.java">
+</file>
+</checkstyle>
