@@ -1,5 +1,6 @@
 package pl.cp.sudoku.solver;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +9,7 @@ import pl.cp.sudoku.parts.SudokuBox;
 import pl.cp.sudoku.parts.SudokuColumn;
 import pl.cp.sudoku.parts.SudokuRow;
 
-public class BacktrackingSudokuSolver implements SudokuSolver {
+public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
 
     @Override
     public void solve(SudokuBoard sudokuBoard) {

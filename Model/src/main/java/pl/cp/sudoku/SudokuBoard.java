@@ -10,7 +10,7 @@ import pl.cp.sudoku.parts.SudokuRow;
 import pl.cp.sudoku.solver.SudokuSolver;
 
 
-public class SudokuBoard implements Observer, Serializable {
+public class SudokuBoard implements Observer, Serializable,Cloneable {
 
     private final SudokuField[][] board = new SudokuField[9][9];
     private final SudokuSolver sudokuSolver;

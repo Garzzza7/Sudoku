@@ -2,6 +2,8 @@ package pl.cp.sudoku;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.cp.sudoku.dao.Dao;
+import pl.cp.sudoku.dao.SudokuBoardDaoFactory;
 import pl.cp.sudoku.parts.SudokuColumn;
 import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
 import pl.cp.sudoku.solver.SudokuSolver;
@@ -9,6 +11,10 @@ import pl.cp.sudoku.solver.SudokuSolver;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 
 public class SudokuTest {
@@ -167,5 +173,48 @@ public class SudokuTest {
         assertFalse(sb.equals(null));
         bs.setFieldValue(1);
         assertFalse(sb.equals(sudokuBoard));
+    }
+    @Test
+    public void testFileSudokuBoard() {
+        SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
+        sudokuBoard.solveGame();
+        SudokuBoard newboard = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
+        try (Dao<SudokuBoard> sudokuBoardDao = sudokuBoardDaoFactory.getFileDao("filename.txt")) {
+
+            sudokuBoardDao.write(sudokuBoard);
+            assertNotEquals(null,sudokuBoardDao);
+            assertNotEquals(null,newboard);
+            newboard = sudokuBoardDao.read();
+            assertEquals(sudokuBoard,newboard);
+            newboard.solveGame();
+            assertNotEquals(sudokuBoard,newboard);
+
+        } catch (Exception e) {
+
+        }
+        try {
+            SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
+            sb.solveGame();
+            FileOutputStream fileOutputStream = new FileOutputStream("filename.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(sb);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    @Test
+    public void testFileSudokuBoardFactory() {
+        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
+
+        assertNotEquals(null,sudokuBoardDaoFactory.getFileDao("filename.txt"));
+
     }
 }

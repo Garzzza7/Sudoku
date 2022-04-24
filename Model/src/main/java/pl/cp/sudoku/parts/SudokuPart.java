@@ -2,7 +2,9 @@ package pl.cp.sudoku.parts;
 
 import pl.cp.sudoku.SudokuField;
 
-public abstract class SudokuPart {
+import java.io.Serializable;
+
+public abstract class SudokuPart implements Serializable,Cloneable {
 
     protected SudokuField[] fields = new SudokuField[9];
 

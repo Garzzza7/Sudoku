@@ -1,5 +1,7 @@
 package pl.cp.sudoku.parts;
 
-public class SudokuColumn extends SudokuPart{
+import java.io.Serializable;
+
+public class SudokuColumn extends SudokuPart implements Serializable,Cloneable{
 
 }
