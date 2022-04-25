@@ -3,7 +3,6 @@ package pl.cp.sudoku;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.cp.sudoku.dao.Dao;
-import pl.cp.sudoku.dao.FileSudokuBoardDao;
 import pl.cp.sudoku.dao.SudokuBoardDaoFactory;
 import pl.cp.sudoku.parts.SudokuColumn;
 import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
@@ -12,12 +11,11 @@ import pl.cp.sudoku.solver.SudokuSolver;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 
+@SuppressWarnings({"ConstantConditions", "UnnecessaryLocalVariable"})
 public class SudokuTest {
 
     @Test
@@ -126,15 +124,16 @@ public class SudokuTest {
             System.out.println("Works but values are nulls");
         }
         assertTrue(sb.equals(bs) && bs.equals(sb));
-        assertEquals(false, sb.hashCode() != bs.hashCode());
+        assertFalse(sb.hashCode() != bs.hashCode());
         SudokuColumn sudokuColumn = new SudokuColumn();
-        assertFalse(sb.equals(sudokuColumn));
-        assertFalse(sb.equals(null));
+        //noinspection AssertBetweenInconvertibleTypes
+        assertNotEquals(sb, sudokuColumn);
+        assertNotEquals(null, sb);
     }
 
     @Test
     public void testHashCodeTestForSudokuBoard() {
-        SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
+        SudokuBoard sb;
         SudokuBoard bs = new SudokuBoard(new BacktrackingSudokuSolver());
         sb = bs;
         assertTrue(sb.equals(bs) && bs.equals(sb));
@@ -171,18 +170,19 @@ public class SudokuTest {
         SudokuField bs = new SudokuField(() -> {});
         SudokuField sb = bs;
         assertTrue(sb.equals(bs) && bs.equals(sb));
-        assertFalse(sb.equals(null));
+        assertNotEquals(null, sb);
         bs.setFieldValue(1);
+        //noinspection SimplifiableAssertion,EqualsBetweenInconvertibleTypes
         assertFalse(sb.equals(sudokuBoard));
     }
 
     @Test
-    public void testFileSudokuBoard() {
+    public void testFileSudokuBoard() throws Exception {
         SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
         sudokuBoard.solveGame();
         SudokuBoard newboard = new SudokuBoard(new BacktrackingSudokuSolver());
-        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
-        try (Dao<SudokuBoard> sudokuBoardDao = sudokuBoardDaoFactory.getFileDao("filename.txt")) {
+
+        try (Dao<SudokuBoard> sudokuBoardDao = SudokuBoardDaoFactory.getFileDao("filename.txt")) {
 
             sudokuBoardDao.write(sudokuBoard);
             assertNotEquals(null,sudokuBoardDao);
@@ -192,42 +192,35 @@ public class SudokuTest {
             newboard.solveGame();
             assertNotEquals(sudokuBoard,newboard);
 
-        } catch (Exception e) {
-
         }
-        try {
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream("filename.txt");
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)){
             SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
             sb.solveGame();
-            FileOutputStream fileOutputStream = new FileOutputStream("filename.txt");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+
             objectOutputStream.writeObject(sb);
             objectOutputStream.flush();
-            objectOutputStream.close();
-
-        } catch (FileNotFoundException e) {
-
-        } catch (IOException e) {
 
         }
-
     }
 
     @Test
     public void testFileSudokuBoardFactory() {
-        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
 
-        assertNotEquals(null,sudokuBoardDaoFactory.getFileDao("filename.txt"));
+        assertNotNull(SudokuBoardDaoFactory.getFileDao("filename.txt"));
 
     }
 
     @Test
-    public void testFileSudokuBoardExceptions(){
+    public void testFileSudokuBoardExceptions() throws Exception {
         SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
         sudokuBoard.solveGame();
-        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
-        sudokuBoardDaoFactory.getFileDao("xd").write(sudokuBoard);
+        SudokuBoardDaoFactory.getFileDao("xd").write(sudokuBoard);
 
-        Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("joink");
-        dao.read();
+        try(Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("joink")){
+            dao.read();
+        }
     }
 }
