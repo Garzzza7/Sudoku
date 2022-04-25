@@ -3,6 +3,7 @@ package pl.cp.sudoku;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.cp.sudoku.dao.Dao;
+import pl.cp.sudoku.dao.FileSudokuBoardDao;
 import pl.cp.sudoku.dao.SudokuBoardDaoFactory;
 import pl.cp.sudoku.parts.SudokuColumn;
 import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
@@ -174,6 +175,7 @@ public class SudokuTest {
         bs.setFieldValue(1);
         assertFalse(sb.equals(sudokuBoard));
     }
+
     @Test
     public void testFileSudokuBoard() {
         SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
@@ -216,5 +218,16 @@ public class SudokuTest {
 
         assertNotEquals(null,sudokuBoardDaoFactory.getFileDao("filename.txt"));
 
+    }
+
+    @Test
+    public void testFileSudokuBoardExceptions(){
+        SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
+        sudokuBoard.solveGame();
+        SudokuBoardDaoFactory sudokuBoardDaoFactory = new SudokuBoardDaoFactory();
+        sudokuBoardDaoFactory.getFileDao("xd").write(sudokuBoard);
+
+        Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("joink");
+        dao.read();
     }
 }
