@@ -1,12 +1,13 @@
 package pl.cp.sudoku;
 
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public class SudokuField extends Observable implements Serializable,Cloneable {
+public class SudokuField extends Observable implements Serializable,Cloneable,Comparable<SudokuField> {
 
     private int value;
 
@@ -40,6 +41,22 @@ public class SudokuField extends Observable implements Serializable,Cloneable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17,37).append(value).toHashCode();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        try {
+            SudokuField clone = (SudokuField) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new CloneNotSupportedException();
+        }
+
+    }
+
+    @Override
+    public int compareTo(SudokuField o) {
+        return Integer.compare(this.value, o.value);
     }
 
 }

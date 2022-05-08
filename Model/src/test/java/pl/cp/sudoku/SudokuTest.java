@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.cp.sudoku.dao.Dao;
 import pl.cp.sudoku.dao.SudokuBoardDaoFactory;
+import pl.cp.sudoku.parts.SudokuBox;
 import pl.cp.sudoku.parts.SudokuColumn;
+import pl.cp.sudoku.parts.SudokuRow;
 import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
 import pl.cp.sudoku.solver.SudokuSolver;
 
@@ -14,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings({"ConstantConditions", "UnnecessaryLocalVariable"})
 public class SudokuTest {
@@ -222,5 +226,144 @@ public class SudokuTest {
         try(Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("joink")){
             dao.read();
         }
+    }
+
+    @Test
+    public void CloningSudokuRowTest() throws CloneNotSupportedException {
+        try{
+            SudokuRow row = new SudokuRow();
+            List<SudokuField> list = Arrays.asList(new SudokuField[9]);
+            for (int i = 0, j = 1; i < 9; i++, j++) {
+                list.set(i, new SudokuField(() -> {}));
+                list.get(i).setFieldValue(j);
+            }
+
+            row.setFields(list);
+            // idk why it shows that it is redundant
+            SudokuRow rowClone = new SudokuRow();
+            rowClone = (SudokuRow)row.clone();
+            assertEquals(rowClone.equals(row),row.equals(rowClone));
+
+            list.get(0).setFieldValue(5);
+            rowClone.setFields(list);
+            assertNotEquals(rowClone,row);
+
+        }
+        catch (NullPointerException e) {
+
+        }
+
+    }
+
+    @Test
+    public void CloningSudokuBoxTest() throws CloneNotSupportedException {
+    try {
+        SudokuBox box = new SudokuBox();
+        List<SudokuField> list = Arrays.asList(new SudokuField[9]);
+        for (int i = 0, j = 1; i < 9; i++, j++) {
+            list.set(i, new SudokuField(() -> {}));
+            list.get(i).setFieldValue(j);
+        }
+
+        box.setFields(list);
+
+        SudokuBox boxClone = (SudokuBox) box.clone();
+        assertEquals(boxClone,box);
+
+        list.get(0).setFieldValue(5);
+        boxClone.setFields(list);
+        assertNotEquals(boxClone,box);
+    }
+    catch (NullPointerException e) {
+
+    }
+
+
+    }
+
+    @Test
+    public void CloningSudokuColumnTest() throws CloneNotSupportedException {
+     try {
+     SudokuColumn column = new SudokuColumn();
+     List<SudokuField> list = Arrays.asList(new SudokuField[9]);
+     for (int i = 0, j = 1; i < 9; i++, j++) {
+         list.set(i, new SudokuField(() -> {}));
+         list.get(i).setFieldValue(j);
+     }
+
+     column.setFields(list);
+     // idk why it shows that it is redundant
+     SudokuColumn columnClone = new SudokuColumn();
+     columnClone = (SudokuColumn) column.clone();
+     assertEquals(columnClone.equals(column),column.equals(columnClone));
+
+     list.get(0).setFieldValue(5);
+     columnClone.setFields(list);
+     assertNotEquals(columnClone,column);
+
+    }
+    catch (NullPointerException exception) {
+
+    }
+    }
+    @Test
+    public void CloningSudokuBoardTest() throws CloneNotSupportedException {
+        try
+        {
+            SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+            SudokuBoard clone = board.clone();
+
+            assertEquals(board, clone);
+
+            assertTrue(board.equals(clone));
+
+            clone.set(0,0,5);
+
+            assertNotEquals(board, clone);
+
+            assertEquals(false, board.equals(clone));
+
+            clone.solveGame();
+
+            assertFalse(board.equals(clone));
+        }
+        catch (NullPointerException exception) {
+
+        }
+
+    }
+    @Test
+    public void CloningSudokuFieldTest() throws CloneNotSupportedException {
+        SudokuField field = new SudokuField(() -> {});
+        field.setFieldValue(7);
+        SudokuField copy = new SudokuField(() -> {});
+        copy = (SudokuField) field.clone();
+
+        assertEquals(field.getFieldValue(), copy.getFieldValue());
+
+        copy.setFieldValue(1);
+
+        assertNotEquals(field.getFieldValue(), copy.getFieldValue());
+    }
+    @Test
+    public  void ComparingSudokuFieldTest() {
+        SudokuField field1 = new SudokuField(() -> {});
+        SudokuField field2 = new SudokuField(() -> {});
+        field2.setFieldValue(5);
+
+        assertThrows(NullPointerException.class, () -> {
+            SudokuField test = null;
+            //Why is it in pink??
+            field2.compareTo(test);
+        });
+
+        field1.setFieldValue(5);
+
+        assertEquals(0, field1.compareTo(field2));
+        field1.setFieldValue(8);
+        assertTrue(field1.compareTo(field2) > 0);
+        assertTrue(field2.compareTo(field1) < 0);
+        field1.setFieldValue(5);
+        assertEquals(field1.compareTo(field2), 0);
     }
 }

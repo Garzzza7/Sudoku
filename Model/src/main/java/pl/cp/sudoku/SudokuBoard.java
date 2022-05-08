@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import pl.cp.sudoku.parts.SudokuBox;
 import pl.cp.sudoku.parts.SudokuColumn;
 import pl.cp.sudoku.parts.SudokuRow;
+import pl.cp.sudoku.solver.BacktrackingSudokuSolver;
 import pl.cp.sudoku.solver.SudokuSolver;
 
 
@@ -120,5 +121,18 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).append(board).toHashCode();
+    }
+
+    @Override
+    public SudokuBoard clone() throws CloneNotSupportedException {
+        SudokuBoard clone = new SudokuBoard(new BacktrackingSudokuSolver());
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+            clone.set(i,j,get(i,j));
+            }
+
+            }
+
+        return clone;
     }
 }

@@ -1,7 +1,18 @@
 package pl.cp.sudoku.parts;
 
-import java.io.Serializable;
+import pl.cp.sudoku.SudokuField;
 
-public class SudokuColumn extends SudokuPart implements Serializable,Cloneable{
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SudokuColumn extends SudokuPart implements Serializable,Cloneable {
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        List<SudokuField> fields = new ArrayList<>(List.of(getFields()));
+        SudokuColumn copy = new SudokuColumn();
+        copy.setFields(fields);
+        return copy;
+    }
 
 }
