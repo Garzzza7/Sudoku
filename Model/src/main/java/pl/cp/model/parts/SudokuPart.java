@@ -5,7 +5,7 @@ import pl.cp.model.SudokuField;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class SudokuPart implements Serializable,Cloneable {
+public abstract class SudokuPart implements Serializable, Cloneable {
 
     protected SudokuField[] fields = new SudokuField[9];
 
