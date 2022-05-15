@@ -4,7 +4,7 @@ import pl.cp.model.SudokuBoard;
 
 public class SudokuBoardDaoFactory {
 
-    private SudokuBoardDaoFactory() {
+    public SudokuBoardDaoFactory() {
     }
 
     public static Dao<SudokuBoard> getFileDao(String fileName) {

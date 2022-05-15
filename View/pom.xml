@@ -44,6 +44,12 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>pl.cp</groupId>
+            <artifactId>Model</artifactId>
+            <version>1.7</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
