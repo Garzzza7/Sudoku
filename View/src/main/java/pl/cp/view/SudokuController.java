@@ -5,23 +5,11 @@ import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
-import java.util.function.UnaryOperator;
-
-
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +23,10 @@ import pl.cp.model.SudokuBoard;
 import pl.cp.model.dao.Dao;
 import pl.cp.model.dao.SudokuBoardDaoFactory;
 import pl.cp.model.solver.BacktrackingSudokuSolver;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.function.UnaryOperator;
 
 public class SudokuController {
 
@@ -55,65 +47,67 @@ public class SudokuController {
     }
 
     @FXML
-    public Button easy_button;
+    public Button easyButton;
 
     @FXML
-    public Button medium_button;
+    public Button mediumButton;
 
     @FXML
-    public Button hard_button;
+    public Button hardButton;
 
     @FXML
-    public Button start_button;
+    public Button startButton;
 
-    public enum diff_level {
-        EASY(1),MEDIUM(2),HARD(3);
+    public enum DiffLevel {
+        EASY(1), MEDIUM(2), HARD(3);
 
-        private final int level_number;
+        private final int levelNumber;
 
-        diff_level(final int level_number) {
-            this.level_number = level_number;
+        DiffLevel(final int levelNumber) {
+            this.levelNumber = levelNumber;
         }
 
         public int getValue() {
-            return level_number;
+            return levelNumber;
         }
     }
+
     @FXML
     void easyButton(ActionEvent event) {
-        list.add(diff_level.EASY.getValue());
+        list.add(DiffLevel.EASY.getValue());
     }
 
     @FXML
     void mediumButton(ActionEvent event) {
-        list.add(diff_level.MEDIUM.getValue());
+        list.add(DiffLevel.MEDIUM.getValue());
     }
 
     @FXML
     void hardButton(ActionEvent event) {
-        list.add(diff_level.HARD.getValue());
+        list.add(DiffLevel.HARD.getValue());
     }
 
     @FXML
-    void LanguagePLButton(ActionEvent event) throws IOException {
+    void languagePLButton(ActionEvent event) throws IOException {
         Locale locale = new Locale("pl");
-        ResourceBundle r = ResourceBundle.getBundle("bundles/language",locale);
-        easy_button.setText(r.getString("difficulty_easy"));
-        medium_button.setText(r.getString("difficulty_medium"));
-        hard_button.setText(r.getString("difficulty_hard"));
+        ResourceBundle r = ResourceBundle.getBundle("bundles/language", locale);
+        easyButton.setText(r.getString("difficulty_easy"));
+        mediumButton.setText(r.getString("difficulty_medium"));
+        hardButton.setText(r.getString("difficulty_hard"));
 
 
     }
 
     @FXML
-    void LanguageENGButton(ActionEvent event) throws IOException {
+    void languageENGButton(ActionEvent event) throws IOException {
         Locale locale = new Locale("en");
-        ResourceBundle r = ResourceBundle.getBundle("bundles/language",locale);
-        easy_button.setText(r.getString("difficulty_easy"));
-        medium_button.setText(r.getString("difficulty_medium"));
-        hard_button.setText(r.getString("difficulty_hard"));
+        ResourceBundle r = ResourceBundle.getBundle("bundles/language", locale);
+        easyButton.setText(r.getString("difficulty_easy"));
+        mediumButton.setText(r.getString("difficulty_medium"));
+        hardButton.setText(r.getString("difficulty_hard"));
 
     }
+
     @FXML
     public void startButton(ActionEvent event) throws IOException {
         /*
@@ -132,19 +126,18 @@ public class SudokuController {
     }
 
     public void loadBoard() {
-        Stage stage = new Stage();
-        BorderPane root = new BorderPane();
-        GridPane grid = new GridPane();
-        Stage stage2= new Stage();
+
         StackPane r = new StackPane();
+        GridPane grid = new GridPane();
         r.getChildren().add(grid);
+
+        BorderPane root = new BorderPane();
         root.setCenter(grid);
 
         Button load = new Button("load");
         BorderPane bottom = new BorderPane();
         bottom.setRight(load);
         root.setBottom(bottom);
-        Label label1 = new Label("please enter sudoku name: ");
 
         TextField textField = new TextField();
         textField.setPrefSize(200, 25);
@@ -154,15 +147,20 @@ public class SudokuController {
 
         load.setFont(Font.font("Verdana", 15));
         root.setPadding(new Insets(20));
+
+        Stage stage = new Stage();
         stage.setScene(new Scene(root, 500, 150));
 
+        Stage stage2 = new Stage();
         load.setOnAction(event -> {
             try {
                 listLoad.add(1);
-                displayBoard(stage2,sudokuBoard);
+                displayBoard(stage2, sudokuBoard);
 
 
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             stage.close();
 
         });
@@ -170,9 +168,11 @@ public class SudokuController {
         stage.show();
 
     }
-    public void randomCordinates(int files, SudokuBoard board) {
+
+    public void randomCoordinates(int files, SudokuBoard board) {
         Random random = new Random();
-        int x,y;
+        int x;
+        int y;
         int count = 0;
         do {
             x = random.nextInt(9);
@@ -185,12 +185,12 @@ public class SudokuController {
     }
 
     public void loadSavingScreen() {
-        Stage stage = new Stage();
-        BorderPane root = new BorderPane();
-        GridPane grid = new GridPane();
 
         StackPane r = new StackPane();
+        GridPane grid = new GridPane();
         r.getChildren().add(grid);
+
+        BorderPane root = new BorderPane();
         root.setCenter(grid);
 
         Button save = new Button("save");
@@ -210,6 +210,8 @@ public class SudokuController {
 
         save.setFont(Font.font("Verdana", 15));
         root.setPadding(new Insets(20));
+
+        Stage stage = new Stage();
         stage.setScene(new Scene(root, 500, 150));
 
         save.setOnAction(event -> {
@@ -221,23 +223,23 @@ public class SudokuController {
 
         stage.show();
     }
-    public void displayBoard(Stage stage, SudokuBoard board){
+
+    public void displayBoard(Stage stage, SudokuBoard board) {
         try {
 
             BorderPane root = new BorderPane();
             GridPane grid = new GridPane();
-            BorderPane bottom = new BorderPane();
 
             root.setCenter(grid);
             stage.setTitle("Sudoku");
             stage.setScene(new Scene(root, 900, 900));
             stage.setResizable(false);
 
-            if(listLoad.get(listLoad.size()-1) < 0) {
-                randomCordinates(list.get(list.size()), board);
+            if (listLoad.get(listLoad.size() - 1) < 0) {
+                randomCoordinates(list.get(list.size()), board);
             }
 
-
+            BorderPane bottom = new BorderPane();
             Button resumeButton = new Button("Resume");
             bottom.setLeft(resumeButton);
             resumeButton.setOnAction(event -> {
@@ -272,8 +274,7 @@ public class SudokuController {
                             if (c.getText().matches("[1-9]")) {
                                 c.setRange(0, txt.getText().length());
                                 return c;
-                            } else
-                            if (c.getText().isEmpty()) {
+                            } else if (c.getText().isEmpty()) {
                                 return c;
                             }
                             return null;
@@ -309,6 +310,7 @@ public class SudokuController {
             e.printStackTrace();
         }
     }
+
     StringConverter<Integer> stringConverter = new StringConverter<Integer>() {
 
         @Override
