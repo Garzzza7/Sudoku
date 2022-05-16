@@ -214,6 +214,13 @@ public class SudokuController {
 
         save.setOnAction(event -> {
             String sudokuName = textField.getText();
+            try {
+                Dao<SudokuBoard> sudokuBoardDao = SudokuBoardDaoFactory.getFileDao(sudokuName);
+                sudokuBoardDao.write(sudokuBoard);
+
+
+            } catch (Exception e) {
+            }
 
             stage.close();
 
