@@ -22,11 +22,11 @@
                                 <MenuItem id="hard_button" mnemonicParsing="false" onAction="#hardButton" text="Hard" />
                             </items>
                         </MenuButton>
-                        <Button  fx:id="start_button" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" onAction="#startButton" prefHeight="233.0" prefWidth="115.0" text="Start" />
+                        <Button fx:id="startButton" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" onAction="#startButton" prefHeight="233.0" prefWidth="115.0" text="Start" />
                         <MenuButton layoutX="14.0" layoutY="293.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Language" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="293.0">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#LanguagePLButton" text="Polski" />
-                                <MenuItem mnemonicParsing="false" onAction="#LanguageENGButton" text="English" />
+                                <MenuItem mnemonicParsing="false" onAction="#languagePLButton" text="Polski" />
+                                <MenuItem mnemonicParsing="false" onAction="#languageENGButton" text="English" />
                             </items>
                         </MenuButton>
                     </children>
