@@ -33,7 +33,7 @@ public class SudokuController {
 
     public static List<Integer> list = new ArrayList<>();
 
-    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles.language");
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles.language");
 
     @FXML
     private Label welcomeText;
@@ -188,6 +188,19 @@ public class SudokuController {
         stage.setScene(new Scene(root, 500, 150));
 
         save.setOnAction(event -> stage.close());
+        save.setOnAction(event -> {
+            String sudokuName = textField.getText();
+            try {
+                Dao<SudokuBoard> sudokuBoardDao = SudokuBoardDaoFactory.getFileDao(sudokuName);
+                sudokuBoardDao.write(sudokuBoard);
+
+
+            } catch (Exception e) {
+            }
+
+            stage.close();
+
+        });
 
         stage.show();
     }
