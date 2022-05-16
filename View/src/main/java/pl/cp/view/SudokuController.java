@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -36,7 +33,7 @@ public class SudokuController {
 
     public static List<Integer> list = new ArrayList<>();
 
-    private ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles.language");
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles.language");
 
     @FXML
     private Label welcomeText;
@@ -46,83 +43,59 @@ public class SudokuController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    @FXML
-    public Button easyButton;
+    @FXML public MenuButton difficultyButton;
+    @FXML public MenuItem difficultyEasy;
+    @FXML public MenuItem difficultyMedium;
+    @FXML public MenuItem difficultyHard;
+    private Difficulty selectedDifficulty;
 
-    @FXML
-    public Button mediumButton;
+    @FXML public MenuButton languageButton;
 
-    @FXML
-    public Button hardButton;
-
-    @FXML
-    public Button startButton;
-
-    public enum DiffLevel {
-        EASY(1), MEDIUM(2), HARD(3);
-
-        private final int levelNumber;
-
-        DiffLevel(final int levelNumber) {
-            this.levelNumber = levelNumber;
-        }
-
-        public int getValue() {
-            return levelNumber;
-        }
-    }
+    @FXML public Button startButton;
 
     @FXML
     void easyButton(ActionEvent event) {
-        list.add(DiffLevel.EASY.getValue());
+        selectedDifficulty = Difficulty.EASY;
     }
 
     @FXML
     void mediumButton(ActionEvent event) {
-        list.add(DiffLevel.MEDIUM.getValue());
+        selectedDifficulty = Difficulty.MEDIUM;
     }
 
     @FXML
     void hardButton(ActionEvent event) {
-        list.add(DiffLevel.HARD.getValue());
+        selectedDifficulty = Difficulty.HARD;
     }
 
     @FXML
     void languagePLButton(ActionEvent event) throws IOException {
         Locale locale = new Locale("pl");
-        ResourceBundle r = ResourceBundle.getBundle("bundles/language", locale);
-        easyButton.setText(r.getString("difficulty_easy"));
-        mediumButton.setText(r.getString("difficulty_medium"));
-        hardButton.setText(r.getString("difficulty_hard"));
-
-
+        setLanguage(ResourceBundle.getBundle("bundles/language", locale));
     }
 
     @FXML
     void languageENGButton(ActionEvent event) throws IOException {
         Locale locale = new Locale("en");
-        ResourceBundle r = ResourceBundle.getBundle("bundles/language", locale);
-        easyButton.setText(r.getString("difficulty_easy"));
-        mediumButton.setText(r.getString("difficulty_medium"));
-        hardButton.setText(r.getString("difficulty_hard"));
+        setLanguage(ResourceBundle.getBundle("bundles/language", locale));
+    }
 
+    private void setLanguage(ResourceBundle resourceBundle){
+        difficultyButton.setText(resourceBundle.getString("difficulty"));
+        difficultyEasy.setText(resourceBundle.getString("difficulty_easy"));
+        difficultyMedium.setText(resourceBundle.getString("difficulty_medium"));
+        difficultyHard.setText(resourceBundle.getString("difficulty_hard"));
+
+        languageButton.setText(resourceBundle.getString("language"));
     }
 
     @FXML
     public void startButton(ActionEvent event) throws IOException {
-        /*
-       // URL url = new File("View/src/main/resources/pl.cp.view/board.fxml").toURI().toURL();
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/src/main/resources/pl/cp/view/board.fxml")));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
 
-         */
         Stage stageGame = new Stage();
         sudokuBoard.solveGame();
         listLoad.add(0);
-        displayBoard(stageGame, sudokuBoard);
+        displayBoard(stageGame, sudokuBoard, selectedDifficulty);
     }
 
     public void loadBoard() {
@@ -155,7 +128,7 @@ public class SudokuController {
         load.setOnAction(event -> {
             try {
                 listLoad.add(1);
-                displayBoard(stage2, sudokuBoard);
+                displayBoard(stage2, sudokuBoard, selectedDifficulty);
 
 
             } catch (Exception e) {
@@ -214,17 +187,12 @@ public class SudokuController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 500, 150));
 
-        save.setOnAction(event -> {
-            String sudokuName = textField.getText();
-
-            stage.close();
-
-        });
+        save.setOnAction(event -> stage.close());
 
         stage.show();
     }
 
-    public void displayBoard(Stage stage, SudokuBoard board) {
+    public void displayBoard(Stage stage, SudokuBoard board, Difficulty difficulty) {
         try {
 
             BorderPane root = new BorderPane();
@@ -311,7 +279,7 @@ public class SudokuController {
         }
     }
 
-    StringConverter<Integer> stringConverter = new StringConverter<Integer>() {
+    StringConverter<Integer> stringConverter = new StringConverter<>() {
 
         @Override
         public String toString(Integer object) {
@@ -328,8 +296,5 @@ public class SudokuController {
             }
             return Integer.parseInt(string);
         }
-
     };
-
-
 }
