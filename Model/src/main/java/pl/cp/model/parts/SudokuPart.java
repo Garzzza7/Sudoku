@@ -21,7 +21,7 @@ public abstract class SudokuPart implements Serializable, Cloneable {
 
         for (int i = 0; i < 9; i++) {
 
-            fields.get(i).setFieldValue(fields.get(i).getFieldValue());
+            fields.get(i).setValue(fields.get(i).getValue());
         }
     }
 
@@ -31,7 +31,7 @@ public abstract class SudokuPart implements Serializable, Cloneable {
 
             for (SudokuField y : fields) {
 
-                if (x != y && x.getFieldValue() == y.getFieldValue() && (x.getFieldValue() != 0 | y.getFieldValue() != 0)) {
+                if (x != y && x.getValue() == y.getValue() && (x.getValue() != 0 | y.getValue() != 0)) {
                     return false;
                 }
             }

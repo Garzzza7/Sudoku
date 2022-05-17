@@ -158,10 +158,10 @@ public class SudokuTest {
         SudokuField sb = new SudokuField(() -> {});
         SudokuField bs = new SudokuField(() -> {});
 
-        sb.setFieldValue(1);
-        bs.setFieldValue(1);
+        sb.setValue(1);
+        bs.setValue(1);
         assertEquals(sb, bs);
-        sb.setFieldValue(5);
+        sb.setValue(5);
         assertNotEquals(sb, bs);
         assertNotEquals(null, sb);
         assertNotEquals(null, bs);
@@ -174,7 +174,7 @@ public class SudokuTest {
         SudokuField sb = bs;
         assertTrue(sb.equals(bs) && bs.equals(sb));
         assertNotEquals(null, sb);
-        bs.setFieldValue(1);
+        bs.setValue(1);
         //noinspection SimplifiableAssertion,EqualsBetweenInconvertibleTypes
         assertFalse(sb.equals(sudokuBoard));
     }
@@ -234,7 +234,7 @@ public class SudokuTest {
             List<SudokuField> list = Arrays.asList(new SudokuField[9]);
             for (int i = 0, j = 1; i < 9; i++, j++) {
                 list.set(i, new SudokuField(() -> {}));
-                list.get(i).setFieldValue(j);
+                list.get(i).setValue(j);
             }
 
             row.setFields(list);
@@ -243,7 +243,7 @@ public class SudokuTest {
             rowClone = (SudokuRow)row.clone();
             assertEquals(rowClone.equals(row),row.equals(rowClone));
 
-            list.get(0).setFieldValue(5);
+            list.get(0).setValue(5);
             rowClone.setFields(list);
             assertNotEquals(rowClone,row);
 
@@ -261,7 +261,7 @@ public class SudokuTest {
         List<SudokuField> list = Arrays.asList(new SudokuField[9]);
         for (int i = 0, j = 1; i < 9; i++, j++) {
             list.set(i, new SudokuField(() -> {}));
-            list.get(i).setFieldValue(j);
+            list.get(i).setValue(j);
         }
 
         box.setFields(list);
@@ -269,7 +269,7 @@ public class SudokuTest {
         SudokuBox boxClone = (SudokuBox) box.clone();
         assertEquals(boxClone,box);
 
-        list.get(0).setFieldValue(5);
+        list.get(0).setValue(5);
         boxClone.setFields(list);
         assertNotEquals(boxClone,box);
     }
@@ -287,7 +287,7 @@ public class SudokuTest {
      List<SudokuField> list = Arrays.asList(new SudokuField[9]);
      for (int i = 0, j = 1; i < 9; i++, j++) {
          list.set(i, new SudokuField(() -> {}));
-         list.get(i).setFieldValue(j);
+         list.get(i).setValue(j);
      }
 
      column.setFields(list);
@@ -296,7 +296,7 @@ public class SudokuTest {
      columnClone = (SudokuColumn) column.clone();
      assertEquals(columnClone.equals(column),column.equals(columnClone));
 
-     list.get(0).setFieldValue(5);
+     list.get(0).setValue(5);
      columnClone.setFields(list);
      assertNotEquals(columnClone,column);
 
@@ -334,21 +334,21 @@ public class SudokuTest {
     @Test
     public void CloningSudokuFieldTest() throws CloneNotSupportedException {
         SudokuField field = new SudokuField(() -> {});
-        field.setFieldValue(7);
+        field.setValue(7);
         SudokuField copy = new SudokuField(() -> {});
         copy = (SudokuField) field.clone();
 
-        assertEquals(field.getFieldValue(), copy.getFieldValue());
+        assertEquals(field.getValue(), copy.getValue());
 
-        copy.setFieldValue(1);
+        copy.setValue(1);
 
-        assertNotEquals(field.getFieldValue(), copy.getFieldValue());
+        assertNotEquals(field.getValue(), copy.getValue());
     }
     @Test
     public  void ComparingSudokuFieldTest() {
         SudokuField field1 = new SudokuField(() -> {});
         SudokuField field2 = new SudokuField(() -> {});
-        field2.setFieldValue(5);
+        field2.setValue(5);
 
         assertThrows(NullPointerException.class, () -> {
             SudokuField test = null;
@@ -356,13 +356,13 @@ public class SudokuTest {
             field2.compareTo(test);
         });
 
-        field1.setFieldValue(5);
+        field1.setValue(5);
 
         assertEquals(0, field1.compareTo(field2));
-        field1.setFieldValue(8);
+        field1.setValue(8);
         assertTrue(field1.compareTo(field2) > 0);
         assertTrue(field2.compareTo(field1) < 0);
-        field1.setFieldValue(5);
+        field1.setValue(5);
         assertEquals(field1.compareTo(field2), 0);
     }
 }

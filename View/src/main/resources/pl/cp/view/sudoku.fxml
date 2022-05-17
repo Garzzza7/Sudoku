@@ -4,6 +4,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="123.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.cp.view.SudokuController">
@@ -30,7 +31,8 @@
 
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="93.0" prefWidth="140.0">
                <children>
-                        <Button fx:id="startButton" layoutX="24.0" layoutY="15.0" mnemonicParsing="false" onAction="#startButton" prefHeight="64.0" prefWidth="195.0" text="Start" />
+                        <Button fx:id="startButton" layoutX="24.0" layoutY="15.0" mnemonicParsing="false" onAction="#startButton" prefHeight="26.0" prefWidth="195.0" text="Start" />
+                  <TextField fx:id="textFileName" layoutX="24.0" layoutY="53.0" prefHeight="26.0" prefWidth="195.0" />
                </children>
                 </AnchorPane>
             </items>

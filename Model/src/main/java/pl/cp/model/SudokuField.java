@@ -7,20 +7,20 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public class SudokuField extends Observable implements Serializable,Cloneable,Comparable<SudokuField> {
+public class SudokuField extends Observable implements Serializable, Cloneable, Comparable<SudokuField> {
 
-    private int value;
+    private Integer value;
 
     public SudokuField(Observer observer) {
         super(observer);
         this.value = 0;
     }
 
-    public int getFieldValue() {
+    public Integer getValue() {
         return this.value;
     }
 
-    public void setFieldValue(int value) {
+    public void setValue(Integer value) {
         this.value = value;
         notifyObservers();
     }

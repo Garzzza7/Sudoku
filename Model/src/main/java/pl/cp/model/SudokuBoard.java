@@ -27,12 +27,16 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
         }
     }
 
+    public SudokuField getField(int x, int y) {
+        return board[x][y];
+    }
+
     public int get(int x, int y) {
-        return board[x][y].getFieldValue();
+        return board[x][y].getValue();
     }
 
     public void set(int x, int y, int value) {
-        board[x][y].setFieldValue(value);
+        board[x][y].setValue(value);
     }
 
     private boolean checkBoard() {
@@ -104,7 +108,7 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                stringBuilder.append(board[i][j].getFieldValue());
+                stringBuilder.append(board[i][j].getValue());
             }
         }
         return stringBuilder.toString();
@@ -128,10 +132,9 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
         SudokuBoard clone = new SudokuBoard(new BacktrackingSudokuSolver());
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-            clone.set(i,j,get(i,j));
+                clone.set(i, j, get(i, j));
             }
-
-            }
+        }
 
         return clone;
     }
