@@ -45,12 +45,10 @@ public class SudokuField extends Observable implements Serializable, Cloneable, 
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        try {
+
             SudokuField clone = (SudokuField) super.clone();
             return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new CloneNotSupportedException();
-        }
+
 
     }
 

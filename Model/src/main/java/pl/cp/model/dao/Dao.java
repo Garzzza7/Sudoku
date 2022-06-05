@@ -1,7 +1,15 @@
 package pl.cp.model.dao;
 
-public interface Dao<T> extends AutoCloseable {
-    T read();
+import pl.cp.model.exceptions.DaoException;
+import pl.cp.model.exceptions.ReadException;
+import pl.cp.model.exceptions.WriteException;
 
-    void write(T object);
+import java.util.ArrayList;
+
+public interface Dao<T> extends AutoCloseable {
+    T read() throws DaoException, ReadException;
+
+    void write(T object) throws DaoException, WriteException;
+
+    ArrayList<String> getSudokuNames();
 }

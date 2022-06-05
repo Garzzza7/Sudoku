@@ -58,6 +58,7 @@ public class SudokuController {
 
     @FXML
     public Button startButton;
+    @FXML Button saveButton;
     @FXML
     public TextField textFileName;
 
@@ -93,6 +94,8 @@ public class SudokuController {
         difficultyEasy.setText(resourceBundle.getString("difficulty_easy"));
         difficultyMedium.setText(resourceBundle.getString("difficulty_medium"));
         difficultyHard.setText(resourceBundle.getString("difficulty_hard"));
+        saveButton.setText((resourceBundle.getString(("save"))));
+
 
         languageButton.setText(resourceBundle.getString("language"));
     }
@@ -187,6 +190,7 @@ public class SudokuController {
         BorderPane bottom = new BorderPane();
 
         Button saveButton = new Button("SAVE");
+        Button lol = saveButton;
         saveButton.setOnAction(event -> loadSavingScreen());
         bottom.setRight(saveButton);
         root.setBottom(bottom);
