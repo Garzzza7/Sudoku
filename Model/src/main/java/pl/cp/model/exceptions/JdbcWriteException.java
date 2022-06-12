@@ -12,12 +12,13 @@ public class JdbcWriteException extends JdbcExecuteQueryException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
     public JdbcWriteException(Throwable cause) {
         super(cause);
     }
+
     public JdbcWriteException(String message, Throwable cause) {
         super(message, cause);
     }

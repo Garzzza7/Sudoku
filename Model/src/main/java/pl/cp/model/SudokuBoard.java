@@ -3,6 +3,8 @@ package pl.cp.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.cp.model.parts.SudokuBox;
 import pl.cp.model.parts.SudokuColumn;
 import pl.cp.model.parts.SudokuRow;
@@ -13,6 +15,8 @@ import java.io.Serializable;
 
 public class SudokuBoard implements Observer, Serializable, Cloneable {
 
+    private static final Logger logger = LogManager.getLogger(SudokuBoard.class);
+
     private final SudokuField[][] board = new SudokuField[9][9];
     private final SudokuSolver sudokuSolver;
 
@@ -22,9 +26,7 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
 
     @Override
     public void update() {
-        if (checkBoard()) {
-            System.out.println("Board correct!");
-        }
+        if (checkBoard()) logger.info("Board correct!");
     }
 
     public SudokuField getField(int x, int y) {
@@ -58,7 +60,6 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
     }
 
     public void solveGame() {
-
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board[i][j] = new SudokuField(this);
@@ -128,7 +129,7 @@ public class SudokuBoard implements Observer, Serializable, Cloneable {
     }
 
     @Override
-    public SudokuBoard clone() throws CloneNotSupportedException {
+    public SudokuBoard clone() {
         SudokuBoard clone = new SudokuBoard(new BacktrackingSudokuSolver());
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {

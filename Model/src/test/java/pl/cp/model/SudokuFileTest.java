@@ -1,8 +1,11 @@
 package pl.cp.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.cp.model.dao.Dao;
 import pl.cp.model.dao.SudokuBoardDaoFactory;
+import pl.cp.model.exceptions.DaoException;
+import pl.cp.model.exceptions.FileWriteException;
 import pl.cp.model.solver.BacktrackingSudokuSolver;
 
 import java.io.FileOutputStream;
@@ -49,13 +52,15 @@ public class SudokuFileTest {
     }
 
     @Test
-    public void testFileSudokuBoardExceptions() throws Exception {
+    public void testFileSudokuBoardExceptions() {
         SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
         sudokuBoard.solveGame();
-        SudokuBoardDaoFactory.getFileDao("xd").write(sudokuBoard);
 
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("joink")) {
-            dao.read();
-        }
+        Assertions.assertThrows(FileWriteException.class, () -> SudokuBoardDaoFactory.getFileDao("xd").write(sudokuBoard));
+        Assertions.assertThrows(DaoException.class, () -> {
+            try(Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao("wouldn't you believe it? it's just my luck")){
+                dao.read();
+            }
+        });
     }
 }

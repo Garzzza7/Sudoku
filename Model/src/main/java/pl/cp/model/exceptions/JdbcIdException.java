@@ -12,13 +12,14 @@ public class JdbcIdException extends JdbcExecuteQueryException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
 
     public JdbcIdException(Throwable cause) {
         super(cause);
     }
+
     public JdbcIdException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -19,6 +19,8 @@ import javafx.util.converter.NumberStringConverter;
 import pl.cp.model.SudokuBoard;
 import pl.cp.model.dao.Dao;
 import pl.cp.model.dao.SudokuBoardDaoFactory;
+import pl.cp.model.exceptions.DaoException;
+import pl.cp.model.exceptions.WriteException;
 import pl.cp.model.solver.BacktrackingSudokuSolver;
 
 import java.io.IOException;
@@ -58,7 +60,8 @@ public class SudokuController {
 
     @FXML
     public Button startButton;
-    @FXML Button saveButton;
+    @FXML
+    Button saveButton;
     @FXML
     public TextField textFileName;
 
@@ -146,7 +149,8 @@ public class SudokuController {
                 sudokuBoardDao.write(sudokuBoard);
 
 
-            } catch (Exception e) {
+            } catch (WriteException | DaoException e) {
+                e.printStackTrace();
             }
 
             stage.close();

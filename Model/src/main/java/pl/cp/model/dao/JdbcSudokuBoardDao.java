@@ -1,35 +1,29 @@
 package pl.cp.model.dao;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.cp.model.SudokuBoard;
-import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pl.cp.model.exceptions.*;
 import pl.cp.model.solver.BacktrackingSudokuSolver;
 import pl.cp.model.solver.SudokuSolver;
 
-public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
-    private final ResourceBundle bundle = ResourceBundle.getBundle("local.Language");
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-    private String sudokuName;
+public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
+    private final ResourceBundle bundle = ResourceBundle.getBundle("local.language");
+
+    private final String sudokuName;
 
     private Connection connection;
 
-    private static String url = "jdbc:postgresql://localhost:5432/test";
+    private static final String url = "jdbc:postgresql://localhost:5432/test";
+    private static final String user = "postgres";
+    private static final String password = "12345";
 
-    private static String user = "postgres";
-
-    private static String password = "12345";
-
-    private final Logger log = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
+    private static final Logger log = LogManager.getLogger(JdbcSudokuBoardDao.class);
 
     public JdbcSudokuBoardDao(String filename) {
         this.sudokuName = filename;
@@ -40,10 +34,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
         connection = null;
         try {
             connection = DriverManager.getConnection(url, user, password);
-            log.debug("Connected to datebase");
+            log.debug("Connected to database");
             return connection;
         } catch (SQLException e) {
-            log.debug("Error in connecting to datebase");
+            log.debug("Error in connecting to database");
             throw new JdbcConnectionException(JdbcConnectionException.CON_FAIL, e);
         }
 
@@ -69,7 +63,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
              PreparedStatement pstmtFields = conn.prepareStatement(sqlFields);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1,sudokuName);
+            pstmt.setString(1, sudokuName);
             int sudokuId = 0;
 
             try (ResultSet results = pstmt.executeQuery()) {
@@ -78,13 +72,13 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
                 }
             }
 
-            pstmtFields.setInt(1,sudokuId);
+            pstmtFields.setInt(1, sudokuId);
             try (ResultSet results = pstmtFields.executeQuery()) {
                 while (results.next()) {
                     int x = results.getInt(2);
                     int y = results.getInt(1);
                     int value = results.getInt(3);
-                    board.set(x,y,value);
+                    board.set(x, y, value);
                 }
             }
         } catch (SQLException e) {

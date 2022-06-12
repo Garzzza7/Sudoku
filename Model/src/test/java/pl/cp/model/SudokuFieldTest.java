@@ -11,12 +11,8 @@ public class SudokuFieldTest {
     public void testToStringTestForSudokuField() {
         SudokuField sf = new SudokuField(() -> {
         });
-        try {
-            String st = sf.toString();
-            assertNotSame(null, st);
-        } catch (NullPointerException e) {
-            System.out.println("Works but values are nulls");
-        }
+        String st = sf.toString();
+        assertNotSame(null, st);
     }
 
     @Test

@@ -21,9 +21,9 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(path))) {
             sudokuBoard = (SudokuBoard) inputStream.readObject();
         } catch (IOException exception) {
-            throw new FileReadException(FileReadException.READ_FAIL,exception);        }
-        catch (ClassNotFoundException exception) {
-        exception.printStackTrace();
+            throw new FileReadException(FileReadException.READ_FAIL, exception);
+        } catch (ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
         return sudokuBoard;
     }
@@ -33,7 +33,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(path))) {
             outputStream.writeObject(object);
         } catch (IOException exception) {
-            throw new FileWriteException(FileWriteException.WRITE_FAIL,exception);
+            throw new FileWriteException(FileWriteException.WRITE_FAIL, exception);
         }
     }
 

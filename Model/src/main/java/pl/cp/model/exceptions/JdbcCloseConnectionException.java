@@ -14,17 +14,17 @@ public class JdbcCloseConnectionException extends JdbcDaoException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
 
     public JdbcCloseConnectionException(Throwable cause) {
         super(cause);
     }
+
     public JdbcCloseConnectionException(String message, Throwable cause) {
         super(message, cause);
     }
-
 
 
     @Override

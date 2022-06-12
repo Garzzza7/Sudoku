@@ -12,12 +12,13 @@ public class JdbcSameBoardException extends JdbcExecuteQueryException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
     public JdbcSameBoardException(Throwable cause) {
         super(cause);
     }
+
     public JdbcSameBoardException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -13,38 +13,38 @@ public enum Difficulty {
     MEDIUM(10),
     HARD(12);
 
-    private final int FieldsCleared;
+    private final int fieldsCleared;
 
-    Difficulty(int fieldsCleared){
-        FieldsCleared = fieldsCleared;
+    Difficulty(int fieldsCleared) {
+        this.fieldsCleared = fieldsCleared;
     }
 
-    public void setBoardDifficulty(SudokuBoard sudokuBoard){
+    public void setBoardDifficulty(SudokuBoard sudokuBoard) {
 
         Random generator = new Random();
         List<Pair<Integer, Integer>> fieldNumbers = new ArrayList<>();
 
-        for(int i = 0; i < FieldsCleared;){
+        for (int i = 0; i < fieldsCleared; ) {
 
             int valueX = generator.nextInt(0, 9);
             int valueY = generator.nextInt(0, 9);
 
-            if(!fieldAvailable(new Pair<>(valueX, valueY), fieldNumbers)) continue;
+            if (!fieldAvailable(new Pair<>(valueX, valueY), fieldNumbers)) continue;
 
             fieldNumbers.add(new Pair<>(valueX, valueY));
             i++;
         }
 
-        for(Pair<Integer, Integer> pair : fieldNumbers){
+        for (Pair<Integer, Integer> pair : fieldNumbers) {
             sudokuBoard.set(pair.getKey(), pair.getValue(), 0);
         }
     }
 
-    private boolean fieldAvailable(Pair<Integer, Integer> position, List<Pair<Integer, Integer>> fieldNumbers){
+    private boolean fieldAvailable(Pair<Integer, Integer> position, List<Pair<Integer, Integer>> fieldNumbers) {
 
-        for(Pair<Integer, Integer> pair : fieldNumbers){
+        for (Pair<Integer, Integer> pair : fieldNumbers) {
 
-            if (Objects.equals(pair.getKey(), position.getKey()) && Objects.equals(pair.getValue(), position.getValue())){
+            if (Objects.equals(pair.getKey(), position.getKey()) && Objects.equals(pair.getValue(), position.getValue())) {
                 return false;
             }
         }

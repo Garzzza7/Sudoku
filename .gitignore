@@ -2,3 +2,5 @@
 /target/
 /Model/target/
 /View/target/
+/Model/logs/
+/logs/

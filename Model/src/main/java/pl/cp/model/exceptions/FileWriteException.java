@@ -12,13 +12,14 @@ public class FileWriteException extends DaoException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
 
     public FileWriteException(Throwable cause) {
         super(cause);
     }
+
     public FileWriteException(String message, Throwable cause) {
         super(message, cause);
     }

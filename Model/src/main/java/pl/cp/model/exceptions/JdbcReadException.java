@@ -1,8 +1,6 @@
 package pl.cp.model.exceptions;
 
 
-
-
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -14,13 +12,14 @@ public class JdbcReadException extends JdbcExecuteQueryException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.Language", locale);
+        messages = ResourceBundle.getBundle("bundles.language", locale);
     }
 
 
     public JdbcReadException(Throwable cause) {
         super(cause);
     }
+
     public JdbcReadException(String message, Throwable cause) {
         super(message, cause);
     }

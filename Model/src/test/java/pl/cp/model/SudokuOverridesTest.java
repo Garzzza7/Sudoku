@@ -12,31 +12,28 @@ public class SudokuOverridesTest {
     public void testToStringTestForSudokuBoard() {
         SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
         sb.solveGame();
-        try {
-            String st = sb.toString();
-            assertNotSame(null, st);
-        } catch (NullPointerException e) {
-            System.out.println("Works but values are nulls!");
-        }
+        String st = sb.toString();
+        assertNotSame(null, st);
     }
 
     @Test
     public void testEqualsTestForSudokuBoard() {
         SudokuBoard sb = new SudokuBoard(new BacktrackingSudokuSolver());
         SudokuBoard bs = new SudokuBoard(new BacktrackingSudokuSolver());
-        try {
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++)
-                    sb.set(i, j, 1);
 
-            }
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++)
-                    bs.set(i, j, 1);
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Works but values are nulls");
+        sb.solveGame();
+        bs.solveGame();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++)
+                sb.set(i, j, 1);
+
         }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++)
+                bs.set(i, j, 1);
+        }
+
         assertTrue(sb.equals(bs) && bs.equals(sb));
         assertFalse(sb.hashCode() != bs.hashCode());
         SudokuColumn sudokuColumn = new SudokuColumn();
@@ -54,9 +51,11 @@ public class SudokuOverridesTest {
     }
 
     @Test
-    public  void ComparingSudokuFieldTest() {
-        SudokuField field1 = new SudokuField(() -> {});
-        SudokuField field2 = new SudokuField(() -> {});
+    public void ComparingSudokuFieldTest() {
+        SudokuField field1 = new SudokuField(() -> {
+        });
+        SudokuField field2 = new SudokuField(() -> {
+        });
         field2.setValue(5);
 
         assertThrows(NullPointerException.class, () -> {
