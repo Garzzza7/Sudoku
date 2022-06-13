@@ -11,7 +11,7 @@ public class FileReadException extends DaoException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.language", locale);
+        messages = ResourceBundle.getBundle("exceptions", locale);
     }
 
     public FileReadException(String message, Throwable cause) {

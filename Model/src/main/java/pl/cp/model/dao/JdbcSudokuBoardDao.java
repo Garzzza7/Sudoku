@@ -12,8 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
-    private final ResourceBundle bundle = ResourceBundle.getBundle("local.language");
+public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
+    private final ResourceBundle bundle = ResourceBundle.getBundle("bundles.language");
 
     private final String sudokuName;
 
@@ -171,5 +171,4 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard> {
     public void close() throws Exception {
 
     }
-
 }

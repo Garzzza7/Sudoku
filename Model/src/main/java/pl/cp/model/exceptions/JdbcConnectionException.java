@@ -13,7 +13,7 @@ public class JdbcConnectionException extends JdbcDaoException {
 
     static {
         Locale locale = Locale.getDefault(Locale.Category.DISPLAY);
-        messages = ResourceBundle.getBundle("bundles.language", locale);
+        messages = ResourceBundle.getBundle("exceptions", locale);
     }
 
 
